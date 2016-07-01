@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title id='Description'>Permission Tree</title>
+    <link rel="stylesheet" href="css/jqx.base.css" type="text/css" />
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/demos.js"></script>
+    <script type="text/javascript" src="js/jqxcore.js"></script>
+    <script type="text/javascript" src="js/jqxdata.js"></script>
+    <script type="text/javascript" src="js/jqxbuttons.js"></script>
+    <script type="text/javascript" src="js/jqxscrollbar.js"></script>
+    <script type="text/javascript" src="js/jqxpanel.js"></script>
+    <script type="text/javascript" src="js/jqxtree.js"></script>
+    <script type="text/javascript" src="js/jqxcheckbox.js"></script>
+</head>
+
+<body>
+    <div id='content'>
+        <script type="text/javascript">
+        $(document).ready(function() {
+                       
+            // prepare the data
+            // var source = {
+
+            //     datatype: "json",
+            //         datafields: [
+            //             { name: 'RecId' },
+            //             { name: 'ParentId' },
+            //             { name: 'Label' },
+            //             { name: 'LabelFL' },
+            //             { name: 'IsAuth' }
+            //         ],
+            //         id: 'RecId',
+            //         // localdata:data
+            //         url: 'http://localhost:3000/api/permission'
+            //     };
+
+                var source =
+{
+    datatype: "json",
+    async: false,
+    datafields: [
+        { name: 'ParentId', type: 'float' },
+        { name: 'Label', type: 'string' },
+        { name: 'RecId', type: 'float' },
+        { name: 'IsAuth', type: 'float' }
+    ],
+     url: 'api/permission'
+};
+                // create data adapter.
+                var dataAdapter = new $.jqx.dataAdapter(source);
+
+
+                // perform Data Binding.
+                dataAdapter.dataBind();
+                // get the tree items. The first parameter is the item's id. The second parameter is the parent item's id. The 'items' parameter represents 
+                // the sub items collection name. Each jqxTree item has a 'label' property, but in the JSON data, we have a 'text' field. The last parameter 
+                // specifies the mapping between the 'text' and 'label' fields.  
+                var records = dataAdapter.getRecordsHierarchy('RecId', 'ParentId', 'items', [{ name: 'Label', map: 'label'}]);
+
+                $('#jqxWidget').jqxTree({ source: records, width: '300px'});
+            });
+        </script>
+        <div id='jqxWidget'>
+        </div>
+    </div>
+</body>
+</html>
