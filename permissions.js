@@ -1,9 +1,9 @@
 var sql = require('mssql');
 
 var settings = {
-    user: 'sa',
-    password: 'sapass',
-    server: '192.168.1.62',
+    user: 'user',
+    password: 'password',
+    server: '192.*.*.*',
     database: 'APPSERP'
 }
 var conn = new sql.Connection(settings);
